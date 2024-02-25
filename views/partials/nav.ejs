@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <div style="background-color: #212529; padding: 10px; font-family: 'Courier New', Courier, monospace;">
+        <p style="margin: 0; padding: 10px;">@imkeshriraj <span style="background: #fff;color: #343a40;;padding: 10px;">blog's</span></p>
+      </div>
+    </a>
+
+    <!-- Toggler button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Items aligned to the right -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+
+        <% if (locals.user) { %>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/blog/add-new">Add Blog</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <%= locals.user.fullName %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item"><a class="nav-link " href="/user/signup">Create account </a></li>
+          <li class="nav-item"><a class="nav-link " href="/user/signin">Sign In </a></li>
+        <% } %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<% if (locals.error) { %>
+  <div class="alert alert-danger container my-4" role="alert">
+    <%= locals.error %>
+  </div>
+<% } %>

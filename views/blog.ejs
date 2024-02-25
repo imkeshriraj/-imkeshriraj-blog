@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container my-5 mb-5">
+        <div class="row">
+
+            <div class="col-md-12 d-flex flex-column justify-content-center mb-5">
+                <img src="<%= blog.coverImageURL %>" class="img-fluid" alt="Cover Image" style="height: 400px;">
+                <div class="mt-4">
+                    <h5><%= blog.title %></h5>
+                    <pre><%- blog.body %></pre>
+
+                    <small class="text-muted">
+                        <img src="<%= blog.createdBy.profileImageURL %>" class="rounded-circle mr-1" style="height: 20px;" alt="Profile Image">
+                        Created By: <span class="font-weight-bold"><%= blog.createdBy.fullName %></span> |
+                        Created At: <span class="font-italic"><%= new Date(blog.createdAt).toLocaleString() %></span> |
+                        Updated At: <span class="font-italic"><%= new Date(blog.updatedAt).toLocaleString() %></span>
+                    </small>
+                </div>
+            </div>
+            <div class="mb-5">
+                <h1 class="mb-4">Comments (<%= comments.length %>) </h1>
+                <% if (locals.user) { %>
+                    <form action="/blog/comment/<%= blog._id %>" method="post" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter your comments" name="content" class="form-control" id="content" aria-describedby="content" required>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Add Comment</button>
+                            </div>
+                        </div>
+                    </form>
+                <% } %>
+                <div class="mt-3">
+                    <% comments.forEach(comment => { %>
+                        <div class="media mb-4">
+                            <img src="<%= comment.createdBy.profileImageURL %>" class="rounded-circle mr-3" style="height: 50px;" alt="Profile Image">
+                            <div class="media-body">
+                                <h5 class="mt-0"><%= comment.createdBy.fullName %></h5>
+                                <p><%= comment.content %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <%- include('./partials/footer') %>
+    <%- include('./partials/script') %>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

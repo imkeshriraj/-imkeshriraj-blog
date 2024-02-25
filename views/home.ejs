@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+    <style>
+        /* Set a fixed height for the card images */
+        .card-img-top {
+            height: 200px; /* Adjust this value as needed */
+            object-fit: cover; /* Ensure images maintain aspect ratio while covering the container */
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="mt-5">Welcome to My Blog</h1>
+                    <p class="lead">This is a simple blog application homepage built using EJS and Bootstrap.</p>
+                </div>
+            </div>
+            <div class="row">
+                <% blogs.forEach(function(item) { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm d-flex flex-column">
+                            <img src="<%= item.coverImageURL %>" class="card-img-top" alt="Cover Image">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <%= item.title %>
+                                </h5>
+                                <p class="card-text flex-grow-1">
+                                    <%= item.body.substring(0, 200) + (item.body.length > 200 ? '...' : '') %>
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <div class="btn-group">
+                                        <!-- You can add more buttons or links here if needed -->
+                                        <a href="/blog/<%= item._id %>"
+                                            class="btn btn-sm btn-outline-secondary">View</a>
+                                    </div>
+                                    <small class="text-muted">Created At: <%= new
+                                            Date(item.createdAt).toLocaleString() %></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+        <%- include('./partials/footer') %>
+</body>
+<%- include('./partials/script') %>
+
+</html>
